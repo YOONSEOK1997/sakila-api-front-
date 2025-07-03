@@ -4,7 +4,12 @@ import Country from './component/Country';
 import City from './component/City';
 import Address from './component/Address';
 import Customer from './component/Customer';
-
+import CountryOne from './component/CountryOne';
+import CountryAdd from './component/CountryAdd';
+import CountryEdit from "./component/CountryEdit";
+import CityOne from './component/CityOne';
+import CityAdd from './component/CityAdd';
+import CityEdit from "./component/CityEdit";
 export default function App() {
   return (
     <BrowserRouter>
@@ -32,6 +37,12 @@ export default function App() {
             <Route path="/City" element={<City />} />
             <Route path="/Address" element={<Address />} />
             <Route path="/Customer" element={<Customer />} />
+            <Route path="/countryOne/:countryId" element={<CountryOne />} /> 
+            <Route path="/countryEdit/:countryId" element={<CountryEdit />} />
+            <Route path="/countryAdd" element={<CountryAdd />} />
+             <Route path="/cityOne/:cityId" element={<CityOne />} /> 
+            <Route path="/cityEdit/:cityId" element={<CityEdit />} />
+           <Route path="/cityAdd/:countryId" element={<CityAdd />} />
           </Routes>
         </main>
 

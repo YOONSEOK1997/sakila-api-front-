@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-
+import { Link , useNavigate } from 'react-router-dom';
 export default function Country() {
   const [countryList, setCountryList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
+ const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost/countryList/${pageNum}`)
@@ -26,7 +27,7 @@ export default function Country() {
             {countryList.map((c) => (
               <tr key={c.countryId} className="text-center hover:bg-gray-50">
                 <td className="py-2 px-4 border-b">{c.countryId}</td>
-                <td className="py-2 px-4 border-b">{c.country}</td>
+                <td className="py-2 px-4 border-b"><Link to={`/CountryOne/` + c.countryId}> {c.country} </Link></td>
               </tr>
             ))}
           </tbody>
@@ -48,6 +49,13 @@ export default function Country() {
         >
           다음
         </button>
+        
+          <button
+            onClick={() => navigate("/countryAdd")}
+            className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg"
+          >
+            등록
+          </button>
       </div>
     </div>
   );
