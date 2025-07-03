@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react'; 
 import Home from './component/Home';
 import Country from './component/Country';
 import City from './component/City';
@@ -10,6 +11,44 @@ import CountryEdit from "./component/CountryEdit";
 import CityOne from './component/CityOne';
 import CityAdd from './component/CityAdd';
 import CityEdit from "./component/CityEdit";
+
+function Navigation() {
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  const navItems = [
+    { label: "Home", to: "/" },
+    { label: "Country", to: "/Country" },
+    { label: "City", to: "/City" },
+    { label: "Address", to: "/Address" },
+    { label: "Customer", to: "/Customer" }
+  ];
+
+  return (
+    <nav className="mt-4">
+      <ul className="flex justify-center space-x-6 text-lg font-medium">
+        {navItems.map(({ label, to }) => {
+          const isActive = pathname === to || pathname.startsWith(to + "/");
+          return (
+            <li key={to}>
+              <Link
+                to={to}
+                className={`transition ${
+                  isActive
+                    ? "text-indigo-600 font-semibold border-b-2 border-indigo-600 pb-1"
+                    : "hover:text-indigo-500"
+                }`}
+              >
+                {label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -18,31 +57,29 @@ export default function App() {
         {/* Header */}
         <header className="bg-white shadow-md p-4">
           <h1 className="text-3xl font-bold text-center text-indigo-600">Sakila Project</h1>
-          <nav className="mt-4">
-            <ul className="flex justify-center space-x-6 text-lg font-medium">
-              <li><Link to="/" className="hover:text-indigo-500 transition">Home</Link></li>
-              <li><Link to="/Country" className="hover:text-indigo-500 transition">Country</Link></li>
-              <li><Link to="/City" className="hover:text-indigo-500 transition">City</Link></li>
-              <li><Link to="/Address" className="hover:text-indigo-500 transition">Address</Link></li>
-              <li><Link to="/Customer" className="hover:text-indigo-500 transition">Customer</Link></li>
-            </ul>
-          </nav>
+          <Navigation />
         </header>
 
         {/* Content */}
         <main className="flex-grow container mx-auto p-6 bg-white rounded-md shadow mt-6">
           <Routes>
             <Route path="/" element={<Home />} />
+            
+            
+            {/*country*/} 
             <Route path="/Country" element={<Country />} />
-            <Route path="/City" element={<City />} />
-            <Route path="/Address" element={<Address />} />
-            <Route path="/Customer" element={<Customer />} />
             <Route path="/countryOne/:countryId" element={<CountryOne />} /> 
             <Route path="/countryEdit/:countryId" element={<CountryEdit />} />
             <Route path="/countryAdd" element={<CountryAdd />} />
-             <Route path="/cityOne/:cityId" element={<CityOne />} /> 
+            {/*city*/}
+            <Route path="/City" element={<City />} />
+            <Route path="/cityOne/:cityId" element={<CityOne />} /> 
             <Route path="/cityEdit/:cityId" element={<CityEdit />} />
-           <Route path="/cityAdd/:countryId" element={<CityAdd />} />
+            <Route path="/cityAdd/:countryId" element={<CityAdd />} />
+            {/*Address*/} 
+            <Route path="/Address" element={<Address />} />
+            {/*Customer*/} 
+            <Route path="/Customer" element={<Customer />} />
           </Routes>
         </main>
 
